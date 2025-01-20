@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:JGExamenProgreso3.Properties.JGViewModel"         
+             x:Class="JGExamenProgreso3.MainPage"
+             Title="Google Books">
+
+    <ContentPage.BindingContext>
+        <vm:JGMainViewModel />
+    </ContentPage.BindingContext>
+
+    <VerticalStackLayout Padding="10">
+        <Entry Text="{Binding SearchQuery}" Placeholder="Search for books..." />
+        <Button Text="Search" Command="{Binding SearchCommand}" />
+        <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" />
+        <CollectionView ItemsSource="{Binding Books}" SelectionMode="Single" SelectionChanged="OnBookSelected">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <StackLayout Orientation="Horizontal" Padding="10">
+                        <Image Source="{Binding Thumbnail}" HeightRequest="100" WidthRequest="70" Aspect="AspectFill" />
+                        <VerticalStackLayout>
+                            <Label Text="{Binding Title}" FontAttributes="Bold" />
+                            <Label Text="{Binding Authors}" />
+                        </VerticalStackLayout>
+                    </StackLayout>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </VerticalStackLayout>
+</ContentPage>
